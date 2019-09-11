@@ -1,3 +1,3 @@
 # RestaurantSearch APP
-This projects is developed using zomato API for restaurant search
+This projects is developed using zomato APIs for restaurant search
 
