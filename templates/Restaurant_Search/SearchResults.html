@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Restaurant One Page HTML5 Template</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- CSS
+        ================================================ -->
+        <!-- Owl Carousel -->
+		<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %} ">
+        <!-- bootstrap.min css -->
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <!-- Font-awesome.min css -->
+		<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %} ">
+        <!-- Main Stylesheet -->
+        <link rel="stylesheet" href="{% static 'css/animate.min.css' %} ">
+
+		<link rel="stylesheet" href="{% static 'css/main.css' %} ">
+        <!-- Responsive Stylesheet -->
+		<link rel="stylesheet" href="{% static 'css/responsive.css' %} ">
+		<!-- Js -->
+    <script src="{% static 'js/vendor/modernizr-2.6.2.min.js' %} "></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+    <script>window.jQuery || document.write('<script src="{% static 'js/vendor/jquery-1.10.2.min.js' %} "><\/script>')</script>
+    <script src="{% static 'js/jquery.nav.js' %} "></script>
+    <script src="{% static 'js/jquery.sticky.js' %} "></script>
+    <script src="{% static 'js/bootstrap.min.js' %} "></script>
+    <script src="{% static 'js/plugins.js' %} "></script>
+    <script src="{% static 'js/wow.min.js' %} "></script>
+    <script src="{% static 'js/main.js' %} "></script>
+	</head>
+	<body>
+
+ 
+<section id="blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="block">
+                        <h1 class="heading"><span>Search Results</span> "{{search_key}}" <span>in</span> "{{city}}" </h1>
+                        <ul>
+                       {% for key1,value1 in data.items %}
+                            <li class="wow fadeInLeft" data-wow-duration="300ms" data-wow-delay="300ms">
+                                <div class="{% cycle 'blog-img' 'blog-img' 'blog-img-2' 'blog-img-2' %}">
+                                    <img src=" {% static 'images/blog/blog-img' %}-{% cycle '1' '2' '3' '4' '5' '6' %}.jpg " alt="blog-img">
+                                </div>
+                                
+                                <div class="content-right">
+                                    <h3><a href="javascript:loadRestaurant('{{key1}}','{{value1.name}}');">{{value1.name}}</a></h3>
+                                    <p> Cusines : {{value1.cusine}}</p>
+                                    <p> Rating : <span>{{value1.rating}}</span></p>
+                                </div>
+                            </li>
+                        {% endfor %}    
+                        </ul>
+                        <a class="btn btn-default btn-more-info wow bounceIn" data-wow-duration="500ms" data-wow-delay="1200ms" href="#" role="button">More Info</a>
+                    </div>
+                </div><!-- .col-md-12 close -->
+            </div><!-- .row close -->
+        </div><!-- .containe close -->
+    </section><!-- #blog close -->
+
+    <div class="modal" id="myModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>                
+            </div>
+            <div class="modal-body">
+                <p>Do you want to save changes to this document before closing?</p>
+                <p class="text-secondary"><small>If you don't save, your changes will be lost.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
+<script>
+function loadRestaurant(res_id,name){
+    var res_id = res_id;
+    var res_name = name;
+    $('.modal-title').text(res_name);
+   $("#myModal").modal('show');
+}
+
+</script>
