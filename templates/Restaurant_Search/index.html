@@ -1,42 +1,7 @@
+{% extends 'Restaurant_Search/base.html' %}
 {% load static %}
-
-<!DOCTYPE html>
-<html class="no-js">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Restaurant One Page HTML5 Template</title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- CSS
-        ================================================ -->
-        <!-- Owl Carousel -->
-		<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %} ">
-        <!-- bootstrap.min css -->
-		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-        <!-- Font-awesome.min css -->
-		<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %} ">
-        <!-- Main Stylesheet -->
-        <link rel="stylesheet" href="{% static 'css/animate.min.css' %} ">
-
-		<link rel="stylesheet" href="{% static 'css/main.css' %} ">
-        <!-- Responsive Stylesheet -->
-		<link rel="stylesheet" href="{% static 'css/responsive.css' %} ">
-		<!-- Js -->
-    <script src="{% static 'js/vendor/modernizr-2.6.2.min.js' %} "></script>
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
-    <script>window.jQuery || document.write('<script src="{% static 'js/vendor/jquery-1.10.2.min.js' %} "><\/script>')</script>
-    <script src="{% static 'js/jquery.nav.js' %} "></script>
-    <script src="{% static 'js/jquery.sticky.js' %} "></script>
-    <script src="{% static 'js/bootstrap.min.js' %} "></script>
-    <script src="{% static 'js/plugins.js' %} "></script>
-    <script src="{% static 'js/wow.min.js' %} "></script>
-    <script src="{% static 'js/main.js' %} "></script>
-	</head>
-	<body>
-
- 
-
+{% block content %}
+<body>
 	<!--
 	header-img start 
 	============================== -->
@@ -50,13 +15,12 @@
                 <div class="col-md-12">
                     <div class="block">
                         <h1 class=" heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms"> Restaurants <span>nearby</span> YOU</h1>
-                        <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
+                        <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">There is no love sincerer than the love of food.</p>
                         <form class="form-inline" action="{% url 'searchRestaurant' %}">{% csrf_token %}
                             <div class="form-group">
                                 <div class="input-group">
                                   <div class="input-group-addon">
-                                    <span style="color:red"><i class="glyphicon glyphicon-map-marker"></i></span>
-                                    <input type="text" class="form-control" id="city" list="city-list" name="city" placeholder="Location">
+                                    <input type="text" class="form-control" id="city" required='' list="city-list" name="city" placeholder="Location">
                                     <datalist id="city-list">
                                     <option value="Chennai">
                                     <option value="Bangalore">
@@ -67,7 +31,7 @@
                                   </div>
                                    <div class="input-group-addon"> <i class="glyphicon glyphicon-map-marker"></i><input type="text" class="form-control" id="search" name="search" placeholder="Search for Restaurant"></div>
                                     <div class="input-group-addon">
-                                        <button class="btn btn-default" type="submit">Search</button>
+                                        <button onclick='javascript:loadRestaurant();' class="btn btn-default" type="submit">Search</button>
                                     </div>
                                 </div>
                             </div>
@@ -82,47 +46,7 @@
     </section>
 
     
-	{% comment %} <!--
-    Header start 
-	============================== -->
-	<nav id="navigation">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="block">
-                        <nav class="navbar navbar-default">
-                          <div class="container-fluid">
-                            <!-- Brand and toggle get grouped for better mobile display -->
-                            <div class="navbar-header">
-                              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                              </button>
-                                  <a class="navbar-brand" href="#">
-                                    <img src="{% static 'images/logo.png' %} " alt="Logo">
-                                  </a>
 
-                            </div>
-
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                              <ul class="nav navbar-nav navbar-right" id="top-nav">
-                                <li><a href="#hero-area">Home</a></li>
-                                <li><a href="#about-us">about us</a></li>
-                                <li><a href="#blog">Blog</a></li>
-                                <li><a href="#search">Search</a></li>
-                                <li><a href="#subscribe">news</a></li>
-                              </ul>
-                            </div><!-- /.navbar-collapse -->
-                          </div><!-- /.container-fluid -->
-                        </nav>
-                    </div>
-                </div><!-- .col-md-12 close -->
-            </div><!-- .row close -->
-        </div><!-- .container close -->
-	</nav><!-- header close --> {% endcomment %}
     <!--
     Slider start
     ============================== -->
@@ -169,119 +93,7 @@
 
 
 
-     {% comment %} <!--
-    subscribe start
-    ============================ -->
-    <section id="subscribe">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="block">
-                        <h1 class=" heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms"> SUBSCRIBE <span>to our</span> NEWSLETTER</h1>
-                        <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </p>
-                        <form class="form-inline">
-                            <div class="form-group">
-                                <div class="input-group">
-                                   <i class="glyphicon glyphicon-map-marker"></i> <input type="text" class="form-control" id="exampleInputAmount" placeholder="Enter your email to subscribe...">
-                                    <div class="input-group-addon">
-                                        <button class="btn btn-default" type="submit">subscribe</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div><!-- .col-md-12 close -->
-            </div><!-- .row close -->
-        </div><!-- .containe close -->
-    </section><!-- #subscribe close --> {% endcomment %}
-    <!--
-    about-us start
-    ============================== -->
-    <section id="about-us">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="block">
-                        <img class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms" src="images/cooker-img.png" alt="cooker-img">
-                        <h1 class="heading wow fadeInUp" data-wow-duration="400ms" data-wow-delay="500ms" >Your <span>Restaurant’s</span> </br> Website Has To Look <span>Good</span>
-                        </h1>
-                        <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="600ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim </br> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in </br>voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat</p>
-                    </div>
-                </div><!-- .col-md-12 close -->
-            </div><!-- .row close -->
-        </div><!-- .containe close -->
-    </section><!-- #call-to-action close -->
-    <!--
-    blog start
-    ============================ -->
-    <section id="blog">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="block">
-                        <h1 class="heading">Latest <span>From</span> the <span>Blog</span></h1>
-                        <ul>
-                            <li class="wow fadeInLeft" data-wow-duration="300ms" data-wow-delay="300ms">
-                                <div class="blog-img">
-                                    <img src=" {% static 'images/blog/blog-img-1.jpg' %} " alt="blog-img">
-                                </div>
-                                <div class="content-right">
-                                    <h3>Homestyle Chicken Pot Pie</h3>
-                                    <p>Prepared in true New England fash-ion. Tender all-white meat chicken simmered...</p>
-                                </div>
-                            </li>
-                            <li class="wow fadeInLeft" data-wow-duration="300ms" data-wow-delay="400ms">
-                                <div class="blog-img">
-                                    <img src=" {% static 'images/blog/blog-img-2.jpg' %} " alt="blog-img">
-                                </div>
-                                <div class="content-right">
-                                    <h3>Homestyle Chicken Pot Pie</h3>
-                                    <p>Prepared in true New England fash-ion. Tender all-white meat chicken simmered...</p>
-                                </div>
-                            </li>
-                            <li class="wow fadeInLeft" data-wow-duration="300ms" data-wow-delay="500ms">
-                                <div class="content-left">
-                                    <h3>Homestyle Chicken Pot Pie</h3>
-                                    <p>Prepared in true New England fash-ion. Tender all-white meat chicken simmered...</p>
-                                </div>
-                                <div class="blog-img-2">
-                                    <img src=" {% static 'images/blog/blog-img-3.jpg' %} " alt="blog-img">
-                                </div>
-                            </li>
-                            <li class="wow fadeInLeft" data-wow-duration="300ms" data-wow-delay="600ms">
-                                <div class="content-left">
-                                    <h3>Homestyle Chicken Pot Pie</h3>
-                                    <p>Prepared in true New England fash-ion. Tender all-white meat chicken simmered...</p>
-                                </div>
-                                <div class="blog-img-2">
-                                    <img src=" {% static 'images/blog/blog-img-4.jpg' %} " alt="blog-img">
-                                </div>
-                            </li>
-                            <li class="wow fadeInLeft" data-wow-duration="300ms" data-wow-delay="700ms">
-                                <div class="blog-img">
-                                    <img src=" {% static 'images/blog/blog-img-5.jpg' %} " alt="blog-img">
-                                </div>
-                                <div class="content-right">
-                                    <h3>Homestyle Chicken Pot Pie</h3>
-                                    <p>Prepared in true New England fash-ion. Tender all-white meat chicken simmered...</p>
-                                </div>
-                            </li>
-                            <li class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="800ms">
-                                <div class="blog-img">
-                                    <img src=" {% static 'images/blog/blog-img-6.jpg' %} " alt="blog-img">
-                                </div>
-                                <div class="content-right">
-                                    <h3>Homestyle Chicken Pot Pie</h3>
-                                    <p>Prepared in true New England fash-ion. Tender all-white meat chicken simmered...</p>
-                                </div>
-                            </li>
-                        </ul>
-                        <a class="btn btn-default btn-more-info wow bounceIn" data-wow-duration="500ms" data-wow-delay="1200ms" href="#" role="button">More Info</a>
-                    </div>
-                </div><!-- .col-md-12 close -->
-            </div><!-- .row close -->
-        </div><!-- .containe close -->
-    </section><!-- #blog close -->
+   
     
     <!--
     footer  start
@@ -319,12 +131,12 @@
                         <div class="blog">
                             <ul>
                                 <li>
-                                    <h4><a href="#">Nov 9-2014</a></h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adip iscing elit. Curabitur ut blandit sapien</p>
+                                    <h4><a href="#">Sep 9-2018</a></h4>
+                                    <p>User*****: On time food delivery</p>
                                 </li>
                                 <li>
-                                    <h4><a href="#">Sep 8-2014</a></h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adip iscing elit. Curabitur ut blandit sapien</p>
+                                    <h4><a href="#">Sep 8-2019</a></h4>
+                                    <p>User****: Cool site</p>
                                 </li>
                             </ul>                
                         </div>
@@ -389,37 +201,35 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <div class="block">
-                        <p>Copyright &copy; 2014 - All Rights Reserved.Design and Developed By <a href="http://www.themefisher.com">Themefisher</a></p>
+                        <p>Copyright &copy; 2019 - All Rights Reserved.Design and Developed By <a href="#">Arunkumar</a></p>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
 	</body>
+{% block loader %}
+{{ block.super }}
+{% endblock loader %}
+
 
 <script>
 
 function loadRestaurant(){
+   
     var city = document.getElementById('city').value
     var search_key = document.getElementById('search').value
     if(city==''){
         alert("Please select the city");
     }
     else{
-        $.ajax({
-            type: 'POST',
-            url: '{% url 'searchRestaurant' %}?city='+city+'&search_key='+search_key,
-            success: function(data){
-                {% comment %} console.log(data); {% endcomment %}
-                var results = JSON.parse(data);
-                var no_of_results = results.results_found
-                console.log(results.restaurants[0]['restaurant']['name']);
-
-            }
-        });
+         $("body").css({'opacity': '0.2',});
+         $(".loader").show();
+        
     }
 
 }
 </script>
 
 </html>
+{% endblock content %}
