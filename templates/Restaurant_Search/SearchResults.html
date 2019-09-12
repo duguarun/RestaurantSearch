@@ -220,8 +220,25 @@ $(':radio').change(function() {
 });
 
 function submitReview(){
-    alert("Thanks for sharing your reviews! It means a lot to us!!!");
-    $("#form_data").trigger('reset');
+    $.ajax({
+        type: 'POST',
+        url : '{% url 'saveFeedback' %}',
+        data: $("#form_data").serializeArray(),
+        success: function(data){
+            if(data.includes('success')){
+                alert("Thanks for sharing your reviews! It means a lot to us!!!");
+                $("#form_data").trigger('reset');
+            }
+            else{
+                alert("Sorry we're unable to save your feedbacks now!! We Regret for the inconvenience!!!");
+            }
+            
+
+        }
+
+
+    });
+    
 
 }
 

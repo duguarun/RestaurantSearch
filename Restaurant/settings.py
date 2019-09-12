@@ -25,7 +25,7 @@ SECRET_KEY = '75jtbncn6mgqc&&!qod2*x66g-_8=&=(&a_87^*$!8zdr59ofj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','duguarun.pythonanywhere.com']
 
 
 # Application definition

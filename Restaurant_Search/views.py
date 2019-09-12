@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from pyzomato import Pyzomato
 import json
-
+from Restaurant_Search.models import Reviews
 
 # Create your views here.
 
@@ -51,4 +51,18 @@ def searchRestaurant(request):
         print(data['name'])
         data
         return JsonResponse (data)
+
+
+@csrf_exempt
+def saveFeedback(request):
+    if request.method=='POST':
+        review = request.POST["review"]
+        rating = request.POST['stars']
+        try:
+            Reviews.objects.create(feedback=review, rating=rating)
+        except Exception as e:
+            status = e
+        else:
+            status='success'
+        return HttpResponse(status)
 
