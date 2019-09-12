@@ -28,15 +28,13 @@ def searchRestaurant(request):
         try:
             for id in range(0,10):
                 resta_id = search_results['restaurants'][id]['restaurant']['R']['res_id']
-                name = search_results['restaurants'][id]['restaurant']['name']
-                cusine = search_results['restaurants'][id]['restaurant']['cuisines']
-                rating = search_results['restaurants'][id]['restaurant']['user_rating']['aggregate_rating']
                 data[resta_id]={}
-                data[resta_id]['name'] = name
-                data[resta_id]['cusine'] = cusine
-                data[resta_id]['rating'] = rating
+                data[resta_id]['name'] = search_results['restaurants'][id]['restaurant']['name']
+                data[resta_id]['cusine'] = search_results['restaurants'][id]['restaurant']['cuisines']
+                data[resta_id]['address'] = search_results['restaurants'][id]['restaurant']['location']['address']
+                data[resta_id]['average_cost_for_two'] = search_results['restaurants'][id]['restaurant']['average_cost_for_two']
+                data[resta_id]['rating'] = search_results['restaurants'][id]['restaurant']['user_rating']['aggregate_rating']
                 res_id.append(resta_id)
-                data
         except:
             status = 'failed'
         else:
@@ -49,8 +47,6 @@ def searchRestaurant(request):
     elif request.GET.get('res_id', False):
         res_id = request.GET["res_id"]
         data = p.getRestaurantDetails(restaurant_id=res_id)
-        html = ""
-        html += "<p>Name: </p>"
         
         print(data['name'])
         data

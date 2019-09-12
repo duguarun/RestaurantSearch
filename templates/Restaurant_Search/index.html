@@ -7,41 +7,41 @@
 	============================== -->
     <section id="hero-area">
       <!--
-    subscribe start
-    ============================ -->
-    <section id="subscribe">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="block">
-                        <h1 class=" heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms"> Restaurants <span>nearby</span> YOU</h1>
-                        <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">There is no love sincerer than the love of food.</p>
-                        <form class="form-inline" action="{% url 'searchRestaurant' %}">{% csrf_token %}
-                            <div class="form-group">
-                                <div class="input-group">
-                                  <div class="input-group-addon">
-                                    <input type="text" class="form-control" id="city" required='' list="city-list" name="city" placeholder="Location">
-                                    <datalist id="city-list">
-                                    <option value="Chennai">
-                                    <option value="Bangalore">
-                                    <option value="Mumbai">
-                                    <option value="Pune">
-                                    <option value="Delhi">
-                                    </datalist>
-                                  </div>
-                                   <div class="input-group-addon"> <i class="glyphicon glyphicon-map-marker"></i><input type="text" class="form-control" id="search" name="search" placeholder="Search for Restaurant"></div>
-                                    <div class="input-group-addon">
-                                        <button onclick='javascript:loadRestaurant();' class="btn btn-default" type="submit">Search</button>
+            subscribe start
+            ============================ -->
+            <section id="subscribe">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="block">
+                                <h1 class=" heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms"> Restaurants <span>nearby</span> YOU</h1>
+                                <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">There is no love sincerer than the love of food.</p>
+                                <form class="form-inline" action="{% url 'searchRestaurant' %}">{% csrf_token %}
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <input type="text" class="form-control" id="city" required='' list="city-list" name="city" placeholder="Location">
+                                            <datalist id="city-list">
+                                            <option value="Chennai">
+                                            <option value="Bangalore">
+                                            <option value="Mumbai">
+                                            <option value="Pune">
+                                            <option value="Delhi">
+                                            </datalist>
+                                        </div>
+                                        <div class="input-group-addon"> <i class="glyphicon glyphicon-map-marker"></i><input type="text" class="form-control" id="search" name="search" placeholder="Search for Restaurant"></div>
+                                            <div class="input-group-addon">
+                                                <button onclick='javascript:loadRestaurant();' class="btn btn-default" type="submit">Search</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
-                        </form>
-                    </div>
-                </div><!-- .col-md-12 close -->
-            </div><!-- .row close -->
-        </div><!-- .containe close -->
-    </section><!-- #subscribe close --> 
-      {% comment %} <img class="img-responsive" src="{% static 'images/blog/blog-bg.jpg' %} " alt=""> {% endcomment %}
+                        </div><!-- .col-md-12 close -->
+                    </div><!-- .row close -->
+                </div><!-- .containe close -->
+            </section><!-- #subscribe close --> 
+            {% comment %} <img class="img-responsive" src="{% static 'images/blog/blog-bg.jpg' %} " alt=""> {% endcomment %}
 
     </section>
 

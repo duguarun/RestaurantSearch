@@ -20,9 +20,10 @@
                                 </div>
                                 
                                 <div class="content-right">
-                                    <h3><a href="javascript:loadRestaurant('{{key1}}','{{value1.name}}');">{{value1.name}}</a></h3>
+                                    <h3><a href="#price" onclick="javascript:loadRestaurant('{{key1}}','{{value1.name}}');">{{value1.name}}</a></h3>
                                     <p> Cusines : {{value1.cusine}}</p>
-                                    <p> Rating : <span>{{value1.rating}}</span></p>
+                                    <p> Rating : <span class="badge badge-primary">{{value1.rating}}</span></p>
+                                    <p> Cost for Two: ₹<span>{{value1.average_cost_for_two}}</span></p>
                                 </div>
                             </li>
                         {% endfor %}    
@@ -41,7 +42,7 @@
         </div><!-- .containe close -->
     </section><!-- #blog close -->
 
-    <section id="price" style="display:none">
+    <section id="price">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -65,9 +66,71 @@
             </div><!-- .row close -->
         </div><!-- .containe close -->
     </section><!-- #price close -->
+
+    <!--
+            subscribe start
+            ============================ -->
+            <section id="subscribe">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="block">
+                                <h1 class=" heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms"> Write <span>your</span> Reviews</h1>
+                                <form class="form-inline" action="javascript:submitReview();" id='form_data'>{% csrf_token %}
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <textarea class="form-control" id="review" name="review" placeholder="Your feedbacks on this restaurant..."></textarea>
+                                        </div>
+                                        <div class="input-group-addon">
+                                        <div class="rating">
+                                            <label>
+                                                <input type="radio" name="stars" value="1" />
+                                                <span class="icon">★</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="stars" value="2" />
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="stars" value="3" />
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>   
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="stars" value="4" />
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="stars" value="5" />
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                            </label>
+                                            </div>
+                                        </div>
+                                            <div class="input-group-addon">
+                                                <button  class="btn btn-default" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div><!-- .col-md-12 close -->
+                    </div><!-- .row close -->
+                </div><!-- .containe close -->
+            </section><!-- #subscribe close --> 
 </body>
 
 {% block loader %}
+{{ block.super }}
 {% endblock loader %}
 
 
@@ -85,7 +148,18 @@ function loadRestaurant(res_id,name){
             console.log(data);
              $("body").css({'opacity': '1.0',});
              $(".loader").hide();
-            var Restaurant_name = '<h3><span>'+res_name+'</span></h3>';
+            var Restaurant_name = '<table>'+
+                                    '<tr><th><h4><span>Restaurant Name</th><td>:&nbsp;</span>'+res_name+'</h4></td></tr>'+
+                                    '<tr><th><h4><span>Category</th><td>:&nbsp;</span>'+data["establishment"]+'</h4></td></tr>'+
+                                    '<tr><th><h4><span>Timings </th><td>:&nbsp;</span>'+data["timings"]+'</h4></td></tr>'+
+                                    '<tr><th><h4><span>Highlights</th><td>:&nbsp; </span>'+data["highlights"]+'</h4></td></tr>'+
+                                    '<tr><th><h4><span>Address</th><td>:&nbsp;</span>'+data["location"]['address']+'</h4></td></tr>'+
+                                    '<tr><th><h4><span>Contact</th><td>:&nbsp;</span>'+data["phone_numbers"]+'</h4></td></tr>'+
+                                    '<tr><th><h4><span>Menu</th><td>:&nbsp;</span><a target="_blank" href="'+data["menu_url"]+'">Go To Menu</a></h4></td></tr>'+
+                                    '<tr><th><h4><span>Photos URL</th><td>:&nbsp;</span><a target="_blank" href="'+data["photos_url"]+'">View the Restaurant Photos</a></h4></td></tr>'+
+                                    '<tr><th><h4><span>Order Now</th><td>:&nbsp;</span><a target="_blank" href="'+data["photos_url"]+'">Order Now!!!</a></h4></td></tr>'+
+                                    '<tr><th><h4><span>Restaurant URL</th><td>:&nbsp;</span><a target="_blank" href="'+data["url"]+'">Go To Restaurant Page</a></h4></td></tr>'+
+                                    '</table>';
 
             var content = '<li class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">'+
                                     '<div class="item">'+
@@ -128,7 +202,7 @@ function loadRestaurant(res_id,name){
                                     '</div>'+
                                 '</li>';
                         $("#price").show();
-                         $('#Restaurant_name').html(res_name);
+                         $('#Restaurant_name').html(Restaurant_name);
                          $('#search_results').html(content);
         }
 
@@ -141,7 +215,15 @@ function loadRestaurant(res_id,name){
 
                             
                                 
+$(':radio').change(function() {
+  console.log('New star rating: ' + this.value);
+});
 
+function submitReview(){
+    alert("Thanks for sharing your reviews! It means a lot to us!!!");
+    $("#form_data").trigger('reset');
+
+}
 
 </script>
 
