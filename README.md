@@ -1,3 +1,5 @@
 # RestaurantSearch APP
-This projects is developed using zomato APIs for restaurant search
+This projects is developed using zomato APIs for restaurant search on Django
+
+
 
