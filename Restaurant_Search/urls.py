@@ -6,4 +6,5 @@ urlpatterns = [
     path('',views.home, name="home"),
     path('searchRestaurant',views.searchRestaurant, name="searchRestaurant"),
     path('saveFeedback',views.saveFeedback, name="saveFeedback"),
+    path('loadFeedback',views.loadFeedback, name="loadFeedback"),
 ]

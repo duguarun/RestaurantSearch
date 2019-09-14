@@ -527,6 +527,15 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
   border-radius: 0px;
   font-size: 15px;
 }
+#subscribe .block-1 form .form-control {
+  width: 250px;
+  background: #fff;
+  opacity: 0.9;
+  border: none;
+  height: 65px;
+  border-radius: 0px;
+  font-size: 15px;
+}
 #subscribe .block form .input-group-addon {
   padding: 0px;
   border: none;

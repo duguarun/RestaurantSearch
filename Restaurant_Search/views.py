@@ -58,11 +58,21 @@ def saveFeedback(request):
     if request.method=='POST':
         review = request.POST["review"]
         rating = request.POST['stars']
+        username = request.POST['username']
+        res_name = request.POST['res_name']
         try:
-            Reviews.objects.create(feedback=review, rating=rating)
+            Reviews.objects.create(feedback=review, rating=rating,restaurant_name=res_name,username=username)
         except Exception as e:
             status = e
         else:
             status='success'
         return HttpResponse(status)
+
+
+@csrf_exempt
+def loadFeedback(request):
+    if request.method =='GET':
+        res_name=request.GET['res_name']
+        top_10_reviews = Reviews.objects.filter(restaurant_name=res_name).order_by('-id').values()[0:10]
+        return JsonResponse(list(top_10_reviews),safe=False)
 

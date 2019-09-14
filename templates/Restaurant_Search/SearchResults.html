@@ -20,7 +20,7 @@
                                 </div>
                                 
                                 <div class="content-right">
-                                    <h3><a href="#price" onclick="javascript:loadRestaurant('{{key1}}','{{value1.name}}');">{{value1.name}}</a></h3>
+                                    <h3><a href="#price" onclick='javascript:loadRestaurant("{{key1}}","{{value1.name}}");'>{{value1.name}}</a></h3>
                                     <p> Cusines : {{value1.cusine}}</p>
                                     <p> Rating : <span class="badge badge-primary">{{value1.rating}}</span></p>
                                     <p> Cost for Two: ₹<span>{{value1.average_cost_for_two}}</span></p>
@@ -28,21 +28,33 @@
                             </li>
                         {% endfor %}    
                         </ul>
-                        {% if no_results %}
-                        <a class="btn btn-default btn-more-info wow bounceIn" data-wow-duration="500ms" data-wow-delay="100ms" href="{% url 'home' %}" role="button">Search Again</a>
-                        {% else %}
-                        <a class="btn btn-default btn-more-info wow bounceIn" data-wow-duration="500ms" data-wow-delay="1000ms" href="#" role="button">More Info</a>
-                        <a class="btn btn-default btn-more-info wow bounceIn" data-wow-duration="500ms" data-wow-delay="100ms" href="{% url 'home' %}" role="button">Search Again</a>
+                    </div>
 
+                        {% if no_results %}
+                          <div class="row">
+                        <div class="block">
+                            <a class="btn btn-default btn-more-info wow bounceIn" data-wow-duration="400ms" data-wow-delay="90ms" href="{% url 'home' %}" role="button">Search Again</a>
+                         </div>
+                         </div>
+                        {% else %}
+                        <div class="row">
+                        <div class="block">
+                            <a class="btn btn-default btn-more-info wow bounceIn" data-wow-duration="400ms" data-wow-delay="90ms" href="#" role="button">More Info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            <a class="btn btn-default btn-more-info wow bounceIn" data-wow-duration="500ms" data-wow-delay="100ms" href="{% url 'home' %}" role="button">Search Again</a>
+                        </div>
+                        </div>
                         {% endif %}
                         
-                    </div>
                 </div><!-- .col-md-12 close -->
             </div><!-- .row close -->
         </div><!-- .containe close -->
     </section><!-- #blog close -->
 
-    <section id="price">
+            
+
+
+
+    <section id="price" style="display:none">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -59,7 +71,8 @@
                             <ul>
                            
                                
-                            <a class="btn btn-default pull-right wow bounceIn" data-wow-duration="500ms" data-wow-delay="400ms" href="#" role="button">More Comments</a>
+                            <a class="btn btn-default pull-right wow bounceIn" data-wow-duration="500ms" data-wow-delay="400ms" href="#" role="button">More Comments<br><span style="font-size:10px">&nbsp;</span></a>
+                            <a class="btn btn-default pull-right wow bounceIn" data-wow-duration="500ms" data-wow-delay="400ms" href="#"  onclick="javascript:loadFeedback();" role="button">Comments<br><span style="font-size:10px">(Feedbacks entered in this site)</span></a>
                         </div>
                     </div>
                 </div><!-- .col-md-12 close -->
@@ -67,10 +80,40 @@
         </div><!-- .containe close -->
     </section><!-- #price close -->
 
+    <!-- The Modal -->
+            <div class="modal" id="myComments">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">          
+                    <h4 class="title modal-title"><span style="color:#ff530;">Top 10 comments enterted in this site are...</span></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <div id="comment-list-section">
+
+                        </div>
+                    <ul>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+                </div>
+            </div>
+            </div>
+
+
     <!--
             subscribe start
             ============================ -->
-            <section id="subscribe">
+            <section id="subscribe" style="display:none">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -78,7 +121,9 @@
                                 <h1 class=" heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms"> Write <span>your</span> Reviews</h1>
                                 <form class="form-inline" action="javascript:submitReview();" id='form_data'>{% csrf_token %}
                                     <div class="form-group">
-                                        <div class="input-group">
+
+                                        <input type="hidden" class="form-control" id="res_name" name="res_name">
+                                        <input type="hidden" class="form-control" id="username" value="TestUser" name="username" >
                                         <div class="input-group-addon">
                                             <textarea class="form-control" id="review" name="review" placeholder="Your feedbacks on this restaurant..."></textarea>
                                         </div>
@@ -145,9 +190,9 @@ function loadRestaurant(res_id,name){
         type: 'POST',
         url: '{% url 'searchRestaurant' %}?res_id='+res_id,
         success:function(data){
-            console.log(data);
-             $("body").css({'opacity': '1.0',});
-             $(".loader").hide();
+         //   console.log(data);
+            $("body").css({'opacity': '1.0',});
+            $(".loader").hide();
             var Restaurant_name = '<table>'+
                                     '<tr><th><h4><span>Restaurant Name</th><td>:&nbsp;</span>'+res_name+'</h4></td></tr>'+
                                     '<tr><th><h4><span>Category</th><td>:&nbsp;</span>'+data["establishment"]+'</h4></td></tr>'+
@@ -161,49 +206,31 @@ function loadRestaurant(res_id,name){
                                     '<tr><th><h4><span>Restaurant URL</th><td>:&nbsp;</span><a target="_blank" href="'+data["url"]+'">Go To Restaurant Page</a></h4></td></tr>'+
                                     '</table>';
 
-            var content = '<li class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">'+
+            var content = "";
+            if (data["all_reviews"]['reviews'].length == 0){
+                content += '<h2 class="title"><span> SORRY! No reviews found for this restaurant!!! &#128579;</span></h2>';
+            }
+            else{
+            for(let i=0; i< data["all_reviews"]['reviews'].length; i++){
+                content += '<li class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">'+
                                     '<div class="item">'+
                                         '<div class="item-title">'+
-                                            '<h2>'+data["all_reviews"]['reviews'][0]["review"]["user"]["name"]+'</h2>'+
+                                            '<h2>'+data["all_reviews"]['reviews'][i]["review"]["user"]["name"]+'</h2>'+
                                             '<div class="border-bottom"></div>'+
-                                            '<span>Rating:'+data['all_reviews']['reviews'][0]['review']['rating']+'/5 </span>'+
+                                            '<span>Rating:'+data['all_reviews']['reviews'][i]['review']['rating']+'/5 </span>'+
                                         '</div>'+
-                                        '<p>'+data['all_reviews']['reviews'][0]['review']['review_text']+'</p>'+
-                                    '</div>'+
-                                '</li>'+
-                                '<li class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">'+
-                                    '<div class="item">'+
-                                        '<div class="item-title">'+
-                                            '<h2>'+data["all_reviews"]['reviews'][1]["review"]["user"]["name"]+'</h2>'+
-                                            '<div class="border-bottom"></div>'+
-                                            '<span>Rating:'+data['all_reviews']['reviews'][1]['review']['rating']+'/5 </span>'+
-                                        '</div>'+
-                                        '<p>'+data['all_reviews']['reviews'][1]['review']['review_text']+'</p>'+
-                                    '</div>'+
-                                '</li>'+
-                                '<li class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">'+
-                                    '<div class="item">'+
-                                        '<div class="item-title">'+
-                                            '<h2>'+data["all_reviews"]['reviews'][2]["review"]["user"]["name"]+'</h2>'+
-                                            '<div class="border-bottom"></div>'+
-                                            '<span>Rating:'+data['all_reviews']['reviews'][2]['review']['rating']+'/5 </span>'+
-                                        '</div>'+
-                                        '<p>'+data['all_reviews']['reviews'][2]['review']['review_text']+'</p>'+
-                                    '</div>'+
-                                '</li>'+
-                                '<li class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">'+
-                                    '<div class="item">'+
-                                        '<div class="item-title">'+
-                                            '<h2>'+data["all_reviews"]['reviews'][3]["review"]["user"]["name"]+'</h2>'+
-                                            '<div class="border-bottom"></div>'+
-                                            '<span>Rating:'+data['all_reviews']['reviews'][3]['review']['rating']+'/5 </span>'+
-                                        '</div>'+
-                                        '<p>'+data['all_reviews']['reviews'][3]['review']['review_text']+'</p>'+
+                                        '<p>'+data['all_reviews']['reviews'][i]['review']['review_text']+'</p>'+
                                     '</div>'+
                                 '</li>';
-                        $("#price").show();
-                         $('#Restaurant_name').html(Restaurant_name);
-                         $('#search_results').html(content);
+                                
+                   }
+            }
+            $("#price").show();
+            $("#subscribe").show();
+            $('#Restaurant_name').html(Restaurant_name);
+            $('#search_results').html(content);
+            document.getElementById('res_name').value = res_name;
+
         }
 
     })
@@ -220,11 +247,16 @@ $(':radio').change(function() {
 });
 
 function submitReview(){
+    
+    $("body").css({'opacity': '0.2',});
+    $(".loader").show();
     $.ajax({
         type: 'POST',
         url : '{% url 'saveFeedback' %}',
         data: $("#form_data").serializeArray(),
         success: function(data){
+            $("body").css({'opacity': '1.0',});
+            $(".loader").hide();
             if(data.includes('success')){
                 alert("Thanks for sharing your reviews! It means a lot to us!!!");
                 $("#form_data").trigger('reset');
@@ -239,6 +271,42 @@ function submitReview(){
 
     });
     
+
+}
+
+function loadFeedback(){
+    $("body").css({'opacity': '0.2',});
+    $(".loader").show();
+    var res_name = document.getElementById('res_name').value
+    $.ajax({
+        type: 'GET',
+        url : '{% url 'loadFeedback' %}?res_name='+res_name,
+        success: function(data){
+            $("body").css({'opacity': '1.0',});
+            $(".loader").hide();
+           // console.log(data);
+            
+            var myComments="";
+            if(data.length==0){
+                myComments += '<h2>NO Feedbacks are Registed for this Restaurant</h2>'
+            }
+            for(let i = 0; i < data.length; i++){
+                myComments += '<li class="list-group-item wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">'+
+                                    '<div class="item">'+
+                                        '<div class="item-title">'+
+                                            '<h2><span>'+data[i]['username']+'<span class="pull-right" style="color:#ffd700">'+'★'.repeat(data[i]['rating'])+'</span></h2>'+
+                                        '</div>'+
+                                        '<p>'+data[i]['feedback']+'</p>'+
+                                    '</div>'+
+                                '</li>';
+            }
+
+
+            $('#comment-list-section').html(myComments);
+            $("#myComments").modal('show');
+        }
+
+    });
 
 }
 
